@@ -1,0 +1,65 @@
+<% if @user.errors.any? %>
+  <%= @user.errors.count %>errors prohibited this obj from being saved:
+  <ul>
+    <% @user.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+
+<% @users.each do |user| %>
+<div>
+  <h1>User info</h1>
+  <%= image_tag @user.get_profile_image(100,100) %>
+  <table class="table">
+    <tbody>
+      <tr>
+        <th>name</th>
+        <th>introduction</th>
+      </tr>
+      <tr>
+        <th><%= user.name %></th>
+        <th><%= user.introduction %></th>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<% end %>
+
+
+<div>
+  <%#= link_to edit_user_path(@user) %>
+</div>
+
+
+<h2>New Book</h2>
+<%= form_with model: Book.new do |f| %>
+  <lable>Title</lable>
+  <%= f.text_field :title %>
+  <lable>Opinion</lable>
+  <%= f.text_area :body %>
+  <%= f.submit 'Create Book' %>
+<% end %>
+
+
+<% @users.each do |user| %>
+<div>
+  <h1>Users</h1>
+  <table class="table">
+    <tbody>
+      <tr>
+        <th>image</th>
+        <th>name</th>
+      </tr>
+      <tr>
+        <th><%= image_tag user.get_profile_image(100,100) %></th>
+        <th><%= user.name %></th>
+      </tr>
+      <tr>
+        <th><%= link_to "show", user_path(user.id) %></th>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<% end %>

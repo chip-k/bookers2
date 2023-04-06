@@ -1,0 +1,62 @@
+<% @users.each do |user| %>
+<div>
+  <h1>User info</h1>
+  <%= image_tag user.get_profile_image(100,100) %>
+  <table class="table">
+    <tbody>
+      <tr>
+        <th>name</th>
+        <th>introduction</th>
+      </tr>
+      <tr>
+        <th><%= user.name %></th>
+        <th><%= user.introduction %></th>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<% end %>
+
+
+<div>
+  <%#= link_to edit_user_path(@user) %>
+</div>
+
+
+<h2>New Book</h2>
+<%= form_with model: Book.new do |f| %>
+  <lable>Title</lable>
+  <%= f.text_field :title %>
+  <lable>Opinion</lable>
+  <%= f.text_area :body %>
+  <%= f.submit 'Create Book' %>
+<% end %>
+
+
+<% @books.each do |book| %>
+<div>
+  <h1>Book detail</h1>
+  <table class="table">
+    <tbody>
+      <tr>
+        <th><%= image_tag @book.user.get_profile_image(100,100) %></th>
+        <th><%= link_to @book.user.name, user_path %></th>
+      </tr>
+      <tr>
+        <th><%= link_to book.title, book_path(book) %></th>
+      </tr>
+      <tr>
+        <th><%= book.body %></th>
+      </tr>
+      <tr>
+        <th>
+          <% if @book.user == current_user %>
+            <%= link_to "Edit", edit_book_path(@book) %>
+            <%= link_to "Destroy", book_path(@book), method: :delete, "data-confirm" => "本当に削除しますか？" %>
+          <% end %>
+        </th>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<% end %>

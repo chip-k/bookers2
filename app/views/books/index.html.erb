@@ -1,0 +1,65 @@
+<% if @book.errors.any? %>
+  <%= @book.errors.count %>errors prohibited this obj from being saved:
+  <ul>
+    <% @book.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+
+<% @books.each do |book| %>
+<div>
+  <h1>User info</h1>
+  <%= image_tag book.user.get_profile_image(100,100) %>
+  <table class="table">
+    <tbody>
+      <tr>
+        <th>name</th>
+        <th>introduction</th>
+      </tr>
+      <tr>
+        <th><%= book.user.name %></th>
+        <th><%= book.user.introduction %></th>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<% end %>
+
+
+<div>
+  <%#= link_to edit_user_path(@user) %>
+</div>
+
+
+<h2>New Book</h2>
+<%= form_with model: Book.new do |f| %>
+  <lable>Title</lable>
+  <%= f.text_field :title %>
+  <lable>Opinion</lable>
+  <%= f.text_area :body %>
+  <%= f.submit 'Create Book' %>
+<% end %>
+
+
+<% @books.each do |book| %>
+<div>
+  <h1>Books</h1>
+  <table class="table">
+    <tbody>
+      <tr>
+        <th><%= image_tag book.user.get_profile_image(100,100) %></th>
+      </tr>
+      <tr>
+        <th>Title</th>
+        <th>Opinion</th>
+      </tr>
+      <tr>
+        <th><%= link_to book.title, book_path(book.id) %></th>
+        <th><%= book.body %></th>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<% end %>
