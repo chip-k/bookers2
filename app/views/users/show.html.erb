@@ -1,36 +1,16 @@
-<% @users.each do |user| %>
 <div>
-  <h1>User info</h1>
-  <%= image_tag @user.get_profile_image(100,100) %>
-  <table class="table">
-    <tbody>
-      <tr>
-        <th>name</th>
-        <th>introduction</th>
-      </tr>
-      <tr>
-        <th><%= user.name %></th>
-        <th><%= user.introduction %></th>
-      </tr>
-    </tbody>
-  </table>
-</div>
-<% end %>
-
-
-<div>
-  <%#= link_to edit_user_path(@user) %>
+  <% flash.each do |key, value| %>
+    <%= flash[:notice] %>
+  <% end %>
 </div>
 
+<%= render 'user_error', user: @user %>
 
-<h2>New Book</h2>
-<%= form_with model: Book.new do |f| %>
-  <lable>Title</lable>
-  <%= f.text_field :title %>
-  <lable>Opinion</lable>
-  <%= f.text_area :body %>
-  <%= f.submit 'Create Book' %>
-<% end %>
+<%= render 'user_info', user: @user %>
+
+<%= render 'user_edit_link', user: @user %>
+
+<%= render 'books/new_book', book: @book %>
 
 
 <% @books.each do |book| %>
@@ -39,10 +19,14 @@
   <table class="table">
     <tbody>
       <tr>
-        <th><%= image_tag book.user.get_profile_image(100,100) %></th>
+        <th>
+          <%= link_to user_path do %>
+            <%= image_tag book.user.get_profile_image(100,100) %>
+          <% end %>
+        </th>
       </tr>
       <tr>
-        <th><%= link_to book.title, book_path %></th>
+        <th><%= link_to book.title, book_path(book) %></th>
       </tr>
       <tr>
         <th><%= book.body %></th>

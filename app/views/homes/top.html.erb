@@ -1,2 +1,22 @@
-<h1>Homes#top</h1>
-<p>Find me in app/views/homes/top.html.erb</p>
+<%= flash[:notice] %>
+
+<h1>welcome to <i class="fas fa-book"></i>Bookers !!</h1>
+<p>In <i class="fas fa-book"></i>Bookers,</p>
+<p>you can share and exchange your opinions , inpressions , and emotions</p>
+<p>about various books!</p>
+
+<% if user_signed_in? %>
+  <li>
+    <%= link_to "Log in", user_path(current_user) %>
+  </li>
+  <li>
+    <%= link_to "Sign up", user_path(current_user) %>
+  </li>
+<% else %>
+  <li>
+    <%= link_to "Log in", new_user_session_path %>
+  </li>
+  <li>
+    <%= link_to "Sign up", new_user_registration_path %>
+  </li>
+<% end %>
