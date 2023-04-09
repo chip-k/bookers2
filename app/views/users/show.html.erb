@@ -12,26 +12,33 @@
 
 <%= render 'books/new_book', book: @book %>
 
+</div>
 
-<% @books.each do |book| %>
-<div>
-  <h1>Books</h1>
+<div class="col-md-8 offset-md-1">
+  <h2 class="mt-3">Books</h2>
   <table class="table">
+    <thead>
+      <tr>
+        <th class="col-4"></th>
+        <th class="col-2 pl-1">本のタイトル</th>
+        <th class="col-3">感想</th>
+        <th class="col-1"></th>
+      </tr>
+    </thead>
     <tbody>
+    <% @books.each do |book| %>
       <tr>
-        <th>
+        <td>
           <%= link_to user_path do %>
-            <%= image_tag book.user.get_profile_image(100,100) %>
+            <%= image_tag book.user.get_profile_image(80,80), class: "w-10" %>
           <% end %>
-        </th>
+        </td>
+        <td><%= link_to book.title, book_path(book) %></td>
+        <td><%= book.body %></td>
       </tr>
-      <tr>
-        <th><%= link_to book.title, book_path(book) %></th>
-      </tr>
-      <tr>
-        <th><%= book.body %></th>
-      </tr>
+    <% end %>
     </tbody>
   </table>
 </div>
-<% end %>
+</div>
+</div>
