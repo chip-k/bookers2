@@ -6,28 +6,30 @@
 
 <%= render 'new_book', book: @book %>
 
+</div>
 
-<% @books.each do |book| %>
-<div>
-  <h1>Books</h1>
+<div class="col-md-8 offset-md-1">
+  <h2 class="mt-3">Books</h2>
   <table class="table">
+    <thead>
+      <tr>
+        <th class="col-1"></th>
+        <th class="col-4">本のタイトル</th>
+        <th class="col-6">感想</th>
+      </tr>
+    </thead>
     <tbody>
+    <% @books.each do |book| %>
       <tr>
         <th>
           <%= link_to user_path(book.user.id) do %>
-            <%= image_tag book.user.get_profile_image(100,100) %>
+            <%= image_tag book.user.get_profile_image(80,80) %>
           <% end %>
         </th>
-      </tr>
-      <tr>
-        <th>本のタイトル</th>
-        <th>感想</th>
-      </tr>
-      <tr>
         <th><%= link_to book.title, book_path(book.id) %></th>
         <th><%= book.body %></th>
       </tr>
+    <% end %>
     </tbody>
   </table>
 </div>
-<% end %>
